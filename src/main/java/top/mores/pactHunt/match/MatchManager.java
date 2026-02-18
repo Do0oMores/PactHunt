@@ -67,7 +67,7 @@ public class MatchManager {
         playerToMatch.put(player.getUniqueId(), match.getId());
 
         teleportToMatchSpawn(player, match);
-        player.sendMessage("已加入对局" + match.getId().toString().substring(0, 8));
+        player.sendMessage("已加入对局 " + match.getId().toString().substring(0, 8));
 
         if (match.getState() == MatchState.WAITING && match.getPlayers().size() >= configUtil.getMinPlayers()) {
             startCountdown(match);
@@ -179,7 +179,7 @@ public class MatchManager {
         matches.put(match.getId(), match);
 
         applyWorldBorder(match);
-        plugin.getLogger().info("Create match" + match.getId() + "in world" + worldName);
+        plugin.getLogger().info("Create match " + match.getId() + " in world " + worldName);
         return match;
     }
 
@@ -271,7 +271,7 @@ public class MatchManager {
         matches.remove(match.getId());
 
         worldAllocator.releaseWorld(match.getWorldName());
-        plugin.getLogger().info("Close match" + match.getId() + ", released world" + match.getWorldName());
+        plugin.getLogger().info("Close match " + match.getId() + ", released world " + match.getWorldName());
     }
 
     private void checkEndCondition(Match match) {

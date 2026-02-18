@@ -47,7 +47,7 @@ public final class PactHunt extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MatchPlayerListener(matchManager, snapshotService), this);
         Bukkit.getPluginManager().registerEvents(new ExtractionListener(matchManager, extractionManager, this), this);
 
-        Objects.requireNonNull(getCommand("hunt")).setExecutor(new HuntCommand(matchManager, this));
+        Objects.requireNonNull(getCommand("hunt")).setExecutor(new HuntCommand(matchManager));
         Objects.requireNonNull(getCommand("hunt")).setTabCompleter(new CommandTabUtil());
 
         getLogger().info("PactHunt enabled.");

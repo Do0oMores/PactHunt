@@ -2,6 +2,7 @@ package top.mores.pactHunt.world;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import top.mores.pactHunt.PactHunt;
 
 import java.util.*;
@@ -14,13 +15,16 @@ public class WorldAllocator {
     public WorldAllocator(PactHunt plugin) {
         this.plugin = plugin;
 
-        List<String> instances = plugin.getConfig().getStringList("world-pool.instance");
+        List<String> instances = plugin.getConfig().getStringList("world-pool.instances");
+        plugin.getLogger().warning(instances.toString());
         freeWorlds.addAll(instances);
 
         for (String worldName : instances) {
             World world = Bukkit.getWorld(worldName);
             if (world == null) {
                 plugin.getLogger().warning("World not loaded:" + worldName);
+                //调试
+                Bukkit.createWorld(new WorldCreator(worldName));
             }
         }
     }

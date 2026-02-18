@@ -15,7 +15,7 @@ public class HuntCommand implements CommandExecutor {
     private final MatchManager matchManager;
     MessageLang messageLang = new MessageLang();
 
-    public HuntCommand(MatchManager matchManager, PactHunt plugin) {
+    public HuntCommand(MatchManager matchManager) {
         this.matchManager = matchManager;
     }
 

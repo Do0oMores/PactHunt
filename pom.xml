@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>top.mores</groupId>
-    <artifactId>pacthunt</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>PactHunt</artifactId>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>pacthunt</name>
+    <name>PactHunt</name>
 
     <properties>
         <java.version>17</java.version>

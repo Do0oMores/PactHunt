@@ -16,13 +16,11 @@ match:
 world-pool:
   # 对局世界副本池
   instances:
-    - "hunt_map_1_a"
-    - "hunt_map_1_b"
-    - "hunt_map_1_c"
+    - "world2"
 
 match-spawn:
   # 对局出生点
-  world: "hunt_map_1_a"
+  world: "world2"
   x: 0.5
   y: 80.0
   z: 0.5
@@ -40,13 +38,13 @@ extraction:
   cancel-on-damage: true
   points:
     - id: "ex1"
-      world: "hunt_map_1_a"
+      world: "world2"
       x: 120.5
       y: 80.0
       z: 30.5
       radius: 4.0
     - id: "ex2"
-      world: "hunt_map_1_a"
+      world: "world2"
       x: -150.5
       y: 78.0
       z: -60.5
