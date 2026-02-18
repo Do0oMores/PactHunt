@@ -1,12 +1,12 @@
 package top.mores.pactHunt.listener;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import top.mores.pactHunt.PactHunt;
+import top.mores.pactHunt.FileUtils.ChatColorUtil;
+import top.mores.pactHunt.FileUtils.MessageLang;
 import top.mores.pactHunt.match.LeaveReason;
 import top.mores.pactHunt.match.MatchManager;
 import top.mores.pactHunt.snapshot.SnapshotService;
@@ -14,12 +14,11 @@ import top.mores.pactHunt.snapshot.SnapshotService;
 public class MatchPlayerListener implements Listener {
     private final MatchManager matchManager;
     private final SnapshotService snapshotService;
-    private final PactHunt plugin;
+    MessageLang messageLang=new MessageLang();
 
-    public MatchPlayerListener(MatchManager matchManager, SnapshotService snapshotService, PactHunt plugin) {
+    public MatchPlayerListener(MatchManager matchManager, SnapshotService snapshotService) {
         this.matchManager = matchManager;
         this.snapshotService = snapshotService;
-        this.plugin = plugin;
     }
 
     @EventHandler
@@ -27,7 +26,7 @@ public class MatchPlayerListener implements Listener {
         Player p = e.getEntity();
         if (!matchManager.isInMatch(p)) return;
 
-        p.sendMessage(ChatColor.RED + "你已死亡，淘汰中…");
+        p.sendMessage(ChatColorUtil.color(messageLang.getDeathMessage()));
         matchManager.onDeath(p);
     }
 

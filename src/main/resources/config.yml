@@ -1,0 +1,61 @@
+lobby-world: "lobby"
+lobby-spawn:
+  world: "lobby"
+  x: 0.5
+  y: 80.0
+  z: 0.5
+  yaw: 0
+  pitch: 0
+
+match:
+  min-players: 1
+  max-players: 12
+  start-countdown-seconds: 10
+  max-duration-seconds: 1500   # 25分钟
+
+world-pool:
+  # 对局世界副本池
+  instances:
+    - "hunt_map_1_a"
+    - "hunt_map_1_b"
+    - "hunt_map_1_c"
+
+match-spawn:
+  # 对局出生点
+  world: "hunt_map_1_a"
+  x: 0.5
+  y: 80.0
+  z: 0.5
+  yaw: 0
+  pitch: 0
+
+border:
+  enabled: true
+  center-x: 0
+  center-z: 0
+  radius: 450   # 半径，边界为正方形可用WorldBorder
+
+extraction:
+  channel-seconds: 12
+  cancel-on-damage: true
+  points:
+    - id: "ex1"
+      world: "hunt_map_1_a"
+      x: 120.5
+      y: 80.0
+      z: 30.5
+      radius: 4.0
+    - id: "ex2"
+      world: "hunt_map_1_a"
+      x: -150.5
+      y: 78.0
+      z: -60.5
+      radius: 4.0
+
+rules:
+  block-commands:
+    - "/spawn"
+    - "/home"
+    - "/tpa"
+    - "/tpaccept"
+    - "/back"

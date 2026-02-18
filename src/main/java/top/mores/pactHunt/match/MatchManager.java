@@ -3,6 +3,9 @@ package top.mores.pactHunt.match;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import top.mores.pactHunt.FileUtils.ChatColorUtil;
+import top.mores.pactHunt.FileUtils.ConfigUtil;
+import top.mores.pactHunt.FileUtils.MessageLang;
 import top.mores.pactHunt.PactHunt;
 import top.mores.pactHunt.extract.ExtractionManager;
 import top.mores.pactHunt.snapshot.SnapshotService;
@@ -19,6 +22,8 @@ public class MatchManager {
 
     private final Map<UUID, UUID> playerToMatch = new HashMap<>();
     private final Map<UUID, Match> matches = new HashMap<>();
+    MessageLang messageLang=new MessageLang();
+    ConfigUtil configUtil=new ConfigUtil();
 
     public MatchManager(PactHunt plugin,
                         WorldAllocator worldAllocator,
@@ -46,12 +51,12 @@ public class MatchManager {
 
     public void join(Player player) {
         if (isInMatch(player)) {
-            player.sendMessage("你已经在对局中");
+            player.sendMessage(ChatColorUtil.color(messageLang.getAlreadyInMatch()));
             return;
         }
         Match match = findOrCreateWaitingMatch();
-        if (match.getPlayers().size() >= getMaxPlayers()) {
-            player.sendMessage("当前对局已满，稍后再试");
+        if (match.getPlayers().size() >= configUtil.getMaxPlayers()) {
+            player.sendMessage(ChatColorUtil.color(messageLang.getFullMatchTip()));
             return;
         }
         snapshotService.saveSnapshot(player);
@@ -64,7 +69,7 @@ public class MatchManager {
         teleportToMatchSpawn(player, match);
         player.sendMessage("已加入对局" + match.getId().toString().substring(0, 8));
 
-        if (match.getState() == MatchState.WAITING && match.getPlayers().size() >= getMinPlayers()) {
+        if (match.getState() == MatchState.WAITING && match.getPlayers().size() >= configUtil.getMinPlayers()) {
             startCountdown(match);
         }
     }
@@ -72,7 +77,7 @@ public class MatchManager {
     public void leave(Player player, LeaveReason reason) {
         Match match = getMatchOf(player);
         if (match == null) {
-            player.sendMessage("你不在任何对局中");
+            player.sendMessage(ChatColorUtil.color(messageLang.getNoneInMatchTip()));
             return;
         }
         extractionManager.cancelExtraction(player, "离开对局");
@@ -85,7 +90,7 @@ public class MatchManager {
         snapshotService.restoreSnapshot(player);
         teleportToLobby(player);
 
-        if (match.getState() == MatchState.STARTING && match.getPlayers().size() < getMinPlayers()) {
+        if (match.getState() == MatchState.STARTING && match.getPlayers().size() < configUtil.getMinPlayers()) {
             cancelCountdown(match, "人数不足，倒计时已取消");
             match.setState(MatchState.WAITING);
         }
@@ -195,7 +200,7 @@ public class MatchManager {
                     cancel();
                     return;
                 }
-                if (match.getPlayers().size() < getMinPlayers()) {
+                if (match.getPlayers().size() < configUtil.getMinPlayers()) {
                     cancelCountdown(match, "人数不足，倒计时取消");
                     match.setState(MatchState.WAITING);
                     cancel();
@@ -339,13 +344,5 @@ public class MatchManager {
 
     private void broadcastToMatch(Match match, String msg) {
         forEachPlayer(match, player -> player.sendMessage(msg));
-    }
-
-    private int getMinPlayers() {
-        return plugin.getConfig().getInt("match.min-players", 1);
-    }
-
-    private int getMaxPlayers() {
-        return plugin.getConfig().getInt("match.max-players", 12);
     }
 }

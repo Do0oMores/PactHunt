@@ -72,7 +72,7 @@ public class ExtractionManager {
 
                 if (leftTicks % 20 == 0) {
                     int leftSec = Math.max(0, leftTicks / 20);
-                    p.sendActionBar(ChatColor.AQUA + "撤离中… 剩余 " + leftSec + " 秒（受击/离开将中断）");
+                    p.sendMessage(ChatColor.AQUA + "撤离中… 剩余 " + leftSec + " 秒（受击/离开将中断）");
                 }
 
                 if (leftTicks <= 0) {
@@ -93,7 +93,7 @@ public class ExtractionManager {
         if (tid != null) {
             Bukkit.getScheduler().cancelTask(tid);
             if (p.isOnline()) {
-                p.sendActionBar(ChatColor.RED + "撤离已中断：" + reason);
+                p.sendMessage(ChatColor.RED + "撤离已中断：" + reason);
                 p.playSound(p.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1f, 1f);
             }
         }

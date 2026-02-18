@@ -8,7 +8,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import top.mores.pactHunt.PactHunt;
+import top.mores.pactHunt.FileUtils.ChatColorUtil;
+import top.mores.pactHunt.FileUtils.ConfigUtil;
+import top.mores.pactHunt.FileUtils.MessageLang;
 import top.mores.pactHunt.match.Match;
 import top.mores.pactHunt.match.MatchManager;
 import top.mores.pactHunt.match.MatchState;
@@ -17,11 +19,11 @@ import java.util.List;
 
 public class MatchProtectionListener implements Listener {
     private final MatchManager matchManager;
-    private final PactHunt plugin;
+    MessageLang messageLang = new MessageLang();
+    ConfigUtil configUtil=new ConfigUtil();
 
-    public MatchProtectionListener(MatchManager matchManager, PactHunt plugin) {
+    public MatchProtectionListener(MatchManager matchManager) {
         this.matchManager = matchManager;
-        this.plugin = plugin;
     }
 
     @EventHandler
@@ -42,7 +44,7 @@ public class MatchProtectionListener implements Listener {
         if (m.getState() == MatchState.RUNNING) {
             WorldBorder wb = p.getWorld().getWorldBorder();
             if (!wb.isInside(e.getTo())) {
-                p.sendActionBar(ChatColor.RED + "你正在越界！");
+                p.sendMessage(ChatColor.RED + "你正在越界！");
             }
         }
     }
@@ -53,13 +55,13 @@ public class MatchProtectionListener implements Listener {
         Match m = matchManager.getMatchOf(p);
         if (m == null) return;
 
-        List<String> blocked = plugin.getConfig().getStringList("rules.block-commands");
+        List<String> blocked = configUtil.getBlockCommandsList();
         String msg = e.getMessage().toLowerCase();
 
         for (String b : blocked) {
             if (msg.startsWith(b.toLowerCase())) {
                 e.setCancelled(true);
-                p.sendMessage(ChatColor.RED + "对局中禁止使用该指令。");
+                p.sendMessage(ChatColorUtil.color(messageLang.getBlockCommandsMessage()));
                 return;
             }
         }
