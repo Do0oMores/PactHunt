@@ -32,4 +32,20 @@ public class PlayerSession {
     public double getDamageTaken() {
         return damageTaken;
     }
+
+    public void setExtracted(boolean extracted) {
+        this.extracted = extracted;
+    }
+
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
+
+    public void setDamageDealt(double damageDealt) {
+        this.damageDealt = damageDealt;
+    }
+
+    public void setDamageTaken(double damageTaken) {
+        this.damageTaken = damageTaken;
+    }
 }

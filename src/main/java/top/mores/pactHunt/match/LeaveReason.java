@@ -6,5 +6,7 @@ public enum LeaveReason {
     DEATH,
     EXTRACTED,
     ADMIN_END,
-    SHUTDOWN
+    SHUTDOWN,
+    TIMEOUT,
+    NO_ALIVE_PLAYERS
 }

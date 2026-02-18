@@ -3,25 +3,25 @@ package top.mores.pactHunt.match;
 import java.util.*;
 
 public class Match {
-    private final UUID id=UUID.randomUUID();
-    private MatchState state=MatchState.WAITING;
+    private final UUID id = UUID.randomUUID();
+    private MatchState state = MatchState.WAITING;
 
     private final String worldName;
-    private final long createAt=System.currentTimeMillis();
-    private long startAt=-1;
+    private final long createAt = System.currentTimeMillis();
+    private long startAt = -1;
 
-    private final Set<UUID> players=new HashSet<>();
-    private final Set<UUID> alive=new HashSet<>();
-    private final Map<UUID,PlayerSession> sessions=new HashMap<>();
+    private final Set<UUID> players = new HashSet<>();
+    private final Set<UUID> alive = new HashSet<>();
+    private final Map<UUID, PlayerSession> sessions = new HashMap<>();
 
-    private int countdownTaskId=-1;
-    private int timeoutTaskId=-1;
+    private int countdownTaskId = -1;
+    private int timeoutTaskId = -1;
 
-    public Match(String worldName){
-        this.worldName=worldName;
+    public Match(String worldName) {
+        this.worldName = worldName;
     }
 
-    public UUID getId(){
+    public UUID getId() {
         return id;
     }
 
@@ -29,8 +29,8 @@ public class Match {
         return state;
     }
 
-    public void setState(MatchState state){
-        this.state=state;
+    public void setState(MatchState state) {
+        this.state = state;
     }
 
     public String getWorldName() {

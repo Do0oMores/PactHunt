@@ -1,5 +1,12 @@
 name: PactHunt
-version: '1.0-SNAPSHOT'
+version: '0.1.0'
 main: top.mores.pactHunt.PactHunt
 api-version: '1.20'
 authors: [ Mores ]
+commands:
+  hunt:
+    description: PactHunt main command
+    usage: /hunt <join|leave|start|end>
+permissions:
+  pacthunt.admin:
+    default: op
